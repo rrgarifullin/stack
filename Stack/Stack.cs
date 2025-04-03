@@ -12,15 +12,21 @@ namespace Stack
         private class StackItem
         {
             public string CurrentItem { get; set; }
-            public StackItem NextItem { get; set; }
+            public StackItem? NextItem { get; set; }
 
             public StackItem(string currentItem) 
             {
                 CurrentItem = currentItem;
             }
+
+            public StackItem(string currentItem, StackItem? next)
+            {
+                CurrentItem = currentItem;
+                NextItem = next;
+            }
         }
 
-        private StackItem head;
+        private StackItem? head;
         private int count;
 
         public Stack(params string[] stackElements)
@@ -33,8 +39,7 @@ namespace Stack
 
         public void Add(string stackElem)
         {
-            StackItem newItem = new StackItem(stackElem);
-            newItem.NextItem = head;
+            StackItem newItem = new StackItem(stackElem, head);
             head = newItem;
             count++;
         }
@@ -65,11 +70,11 @@ namespace Stack
             get { return count; }
         }
 
-        public string Top
+        public string? Top
         {
             get
             {
-                return head.CurrentItem;
+                return head?.CurrentItem;
             }  
         }
     }
